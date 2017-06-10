@@ -3,8 +3,8 @@
 
 BBData::BBData()
 {
-	//names = new vector<string>();
-	//values = new vector<long int>();
+//	names = *(new vector<string>(50));
+//	values = *(new vector<long int>(50));
 }
 
 BBData::~BBData()

@@ -14,11 +14,11 @@
 using namespace std;
 
 typedef enum frametype_enum {
-	FRAME_TYPE_BAD	= 0,
-	FRAME_TYPE_I	= 1,
-	FRAME_TYPE_P	= 2,
-	FRAME_TYPE_S	= 3,
-	FRAME_TYPE_E	= 4
+	FRAME_TYPE_I	= 0,
+	FRAME_TYPE_P	= 1,
+	FRAME_TYPE_S	= 2,
+	FRAME_TYPE_E	= 3,
+	FRAME_TYPE_BAD	= 10
 } frametype_enum;
 
 typedef enum fieldencodingetype_enum {

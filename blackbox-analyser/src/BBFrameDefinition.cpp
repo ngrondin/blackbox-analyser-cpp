@@ -9,7 +9,8 @@
 
 BBFrameDefinition::BBFrameDefinition()
 {
-
+//	FieldNames = *(new vector<string>(50));
+//	FieldEncodings = *(new vector<fieldencodingetype_enum>(50));
 }
 
 BBFrameDefinition::~BBFrameDefinition()

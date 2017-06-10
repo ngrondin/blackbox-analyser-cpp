@@ -131,7 +131,7 @@ frametype_enum BBLogStream::ReadNextFrame()
 		if(c == 'I')
 		{
 			frametype = FRAME_TYPE_I;
-			//CurrentData.ZeroValues();
+			CurrentData.ZeroValues();
 			timedelta = 0;
 		}
 		else
@@ -171,8 +171,8 @@ frametype_enum BBLogStream::ReadNextFrame()
 				valuecount = 1;
 			}
 
-			//for(int j = 0; j < valuecount; j++)
-			//	CurrentData.values[i + j] += ApplyFieldSpecificRule(frametype, i + j, values[j]);
+			for(int j = 0; j < valuecount; j++)
+				CurrentData.values[i + j] += ApplyFieldSpecificRule(frametype, i + j, values[j]);
 
 			i += (valuecount - 1);
 		}
