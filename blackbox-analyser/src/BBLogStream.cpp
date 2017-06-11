@@ -57,7 +57,7 @@ int BBLogStream::GetFieldID(string name)
 
 long int BBLogStream::GetValue(int field)
 {
-	return CurrentData.values[field];
+	return CurrentStepData.values[field];
 }
 
 
@@ -108,7 +108,7 @@ bool BBLogStream::ReadHeader()
 		{
 			if(headerok)
 			{
-				CurrentData.Initialize(FrameDefinitions[FRAME_TYPE_I].FieldNames);
+				CurrentStepData.Initialize(FrameDefinitions[FRAME_TYPE_I].FieldNames);
 			}
 			quit = true;
 		}
@@ -131,7 +131,7 @@ frametype_enum BBLogStream::ReadNextFrame()
 		if(c == 'I')
 		{
 			frametype = FRAME_TYPE_I;
-			CurrentData.ZeroValues();
+			CurrentStepData.ZeroValues();
 			timedelta = 0;
 		}
 		else
@@ -172,7 +172,7 @@ frametype_enum BBLogStream::ReadNextFrame()
 			}
 
 			for(int j = 0; j < valuecount; j++)
-				CurrentData.values[i + j] += ApplyFieldSpecificRule(frametype, i + j, values[j]);
+				CurrentStepData.values[i + j] += ApplyFieldSpecificRule(frametype, i + j, values[j]);
 
 			i += (valuecount - 1);
 		}

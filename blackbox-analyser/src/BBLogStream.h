@@ -32,7 +32,9 @@ public:
 
 private:
 	BBFrameDefinition FrameDefinitions[3];
-	BBData CurrentData;
+	BBData CurrentStepData;
+	BBData CurrentSlowData;
+	BBData HeaderData;
 	int timedelta;
 	int frameinterval;
 	int minthrottle;

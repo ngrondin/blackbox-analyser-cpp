@@ -15,14 +15,16 @@ BBData::~BBData()
 
 void BBData::Initialize(vector<string> n)
 {
-	//names.push_back("pouet");
 	names.clear();
 	values.clear();
 	for(unsigned int i = 0; i < n.size(); i++)
-	{
-		names.push_back(n[i]);
-		values.push_back(0);
-	}
+		AddValue(n[i], 0);
+}
+
+void BBData::AddValue(string name, long int value)
+{
+	names.push_back(name);
+	values.push_back(value);
 }
 
 void BBData::ZeroValues()
@@ -31,6 +33,18 @@ void BBData::ZeroValues()
 		values[i] = 0;
 }
 
+long int BBData::GetValue(string name)
+{
+	for(unsigned int i = 0; i < names.size(); i++)
+		if(names[i].compare(name) == 0)
+			return values[i];
+	return 0;
+}
+
+long int BBData::GetValue(int id)
+{
+	return values[id];
+}
 
 
 

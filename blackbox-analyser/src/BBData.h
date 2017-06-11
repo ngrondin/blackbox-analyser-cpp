@@ -21,7 +21,10 @@ public:
 	virtual ~BBData();
 
 	void Initialize(vector<string> n);
+	void AddValue(string name, long int value);
 	void ZeroValues();
+	long int GetValue(string name);
+	long int GetValue(int id);
 };
 
 
