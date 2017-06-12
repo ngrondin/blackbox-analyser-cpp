@@ -9,29 +9,28 @@
 #define SRC_STREAMPROCESSOR_NODE_H_
 
 #include <vector>
+#include <string>
 #include "Pipe.h"
-#include "PipeTarget.h"
+#include "Target.h"
+#include "Source.h"
 
 using namespace std;
 
 class Pipe;
 
-class Node : PipeTarget
+class Node : public Target, public Source
 {
 public:
 	Node();
+	Node(unsigned int InputChannelCount, unsigned int OutputChannelCount);
 	virtual ~Node();
-
-	void ConnectOutputPipe(Pipe* p);
-	void SetInput(int id, long int val);
+	bool Drain();
+	virtual void SetProperty(string p, string v);
 
 protected:
-	long int OutputValue;
-	bool HasNewOutput;
-	bool HasOutput;
-	vector<Pipe*> OutputPipes;
 
-	bool Process();
+	void ProcessInputs();
+	virtual void Process();
 };
 
 #endif /* SRC_STREAMPROCESSOR_NODE_H_ */

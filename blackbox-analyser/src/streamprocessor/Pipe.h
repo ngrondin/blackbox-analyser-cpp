@@ -9,26 +9,27 @@
 #define SRC_STREAMPROCESSOR_PIPE_H_
 
 #include <queue>
-#include "PipeTarget.h"
+#include "Target.h"
+#include "Source.h"
 
 using namespace std;
 
+class Source;
+class Target;
 
 class Pipe {
 public:
-	Pipe();
+	Pipe(Source* src, int SourceOutputChannel, Target* trg, int TargetInputChannel);
 	virtual ~Pipe();
 
-	void ConnectOutputNode(PipeTarget* n, int id);
+	void ConnectOutputNode(Target* target, int channel);
 	void SetInput(long int in);
-	bool DrainBuffer();
+	bool Drain();
 
 protected:
-	PipeTarget* Target;
-	int TargetInputId;
+	Target* PipeTarget;
+	int PipeTargetInputChannel;
 	queue<long int> buffer;
-
-
 };
 
 #endif /* SRC_STREAMPROCESSOR_PIPE_H_ */

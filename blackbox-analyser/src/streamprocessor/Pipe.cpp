@@ -7,43 +7,69 @@
 
 #include "Pipe.h"
 
-Pipe::Pipe()
+Pipe::Pipe(Source* src, int SourceOutputChannel, Target* trg, int TargetInputChannel)
 {
-	Target = 0;
-	TargetInputId = 0;
+	PipeTarget = trg;
+	PipeTargetInputChannel = TargetInputChannel;
+	src->ConnectOutputPipe(this, SourceOutputChannel);
 }
 
 Pipe::~Pipe()
 {
 }
 
-void Pipe::ConnectOutputNode(PipeTarget* t, int id)
+
+void Pipe::ConnectOutputNode(Target* target, int channel)
 {
-	Target = t;
-	TargetInputId = id;
+	PipeTarget = target;
+	PipeTargetInputChannel = channel;
 }
+
 
 void Pipe::SetInput(long int in)
 {
-	buffer.push(in);
-	DrainBuffer();
+	if(PipeTarget != 0)
+	{
+		if(PipeTarget->IsReadyForNewInput(PipeTargetInputChannel))
+		{
+			long int val = in;
+			if(buffer.size() > 0)
+			{
+				buffer.push(in);
+				val = buffer.front();
+				buffer.pop();
+			}
+			PipeTarget->SetInput(PipeTargetInputChannel, val);
+		}
+		else
+		{
+			buffer.push(in);
+		}
+	}
 }
 
-bool Pipe::DrainBuffer()
+bool Pipe::Drain()
 {
-	if(buffer.size() > 0)
+	int sz = buffer.size();
+	bool FullyDrained = true;
+	if(sz > 0)
 	{
-		if(Target != 0)
+		if(PipeTarget != 0)
 		{
-			if(Target->IsReadyForNewInput(TargetInputId))
+			if(PipeTarget->IsReadyForNewInput(PipeTargetInputChannel))
 			{
 				long int val = buffer.front();
 				buffer.pop();
-				Target->SetInput(TargetInputId, val);
-				return true;
+				PipeTarget->SetInput(PipeTargetInputChannel, val);
+				if(sz > 1)
+					FullyDrained = false;
 			}
 		}
+		else
+		{
+			FullyDrained = false;
+		}
 	}
-	return false;
+	return FullyDrained;
 }
 
