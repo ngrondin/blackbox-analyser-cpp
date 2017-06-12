@@ -30,7 +30,8 @@ public:
 protected:
 
 	void ProcessInputs();
-	virtual void Process();
+	virtual void ProcessStep();
+	virtual bool ProcessDrain();
 };
 
 #endif /* SRC_STREAMPROCESSOR_NODE_H_ */

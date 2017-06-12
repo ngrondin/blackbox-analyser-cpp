@@ -7,12 +7,16 @@
 
 #include "StreamSource.h"
 
-StreamSource::StreamSource() {
-	// TODO Auto-generated constructor stub
+StreamSource::StreamSource()
+{
 
 }
 
-StreamSource::~StreamSource() {
-	// TODO Auto-generated destructor stub
+StreamSource::~StreamSource()
+{
 }
 
+bool StreamSource::Drain()
+{
+	return DrainOutputs();
+}

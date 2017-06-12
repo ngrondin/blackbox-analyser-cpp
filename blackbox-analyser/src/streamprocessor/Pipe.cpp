@@ -50,25 +50,26 @@ void Pipe::SetInput(long int in)
 
 bool Pipe::Drain()
 {
-	int sz = buffer.size();
+	int buffersize = buffer.size();
 	bool FullyDrained = true;
-	if(sz > 0)
+	if(PipeTarget != 0)
 	{
-		if(PipeTarget != 0)
+		if(buffersize > 0)
 		{
 			if(PipeTarget->IsReadyForNewInput(PipeTargetInputChannel))
 			{
 				long int val = buffer.front();
 				buffer.pop();
 				PipeTarget->SetInput(PipeTargetInputChannel, val);
-				if(sz > 1)
+				if(buffersize > 1)
 					FullyDrained = false;
 			}
 		}
 		else
 		{
-			FullyDrained = false;
+			FullyDrained = PipeTarget->Drain();
 		}
+
 	}
 	return FullyDrained;
 }

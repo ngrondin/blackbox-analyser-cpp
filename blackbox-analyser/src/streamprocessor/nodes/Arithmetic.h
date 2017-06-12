@@ -29,7 +29,7 @@ public:
 protected:
 	operator_enum op;
 
-	void Process();
+	void ProcessStep();
 };
 
 #endif /* SRC_STREAMPROCESSOR_NODES_ARITHMETIC_H_ */

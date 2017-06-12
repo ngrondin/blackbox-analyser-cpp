@@ -2,7 +2,7 @@
 #include <iostream>
 #include "streamprocessor/ExampleSource.h"
 #include "streamprocessor/StreamTarget.h"
-#include "streamprocessor/nodes/Arithmetic.h"
+#include "streamprocessor/nodes/RollingAverage.h"
 
 int main()
 {
@@ -23,14 +23,13 @@ int main()
 	*/
 
 	ExampleSource src;
-	StreamTarget tgt(3);
-	Arithmetic a;
-	a.SetProperty("operator", "*");
-	Pipe p1(&src, 0, &tgt, 0);
-	Pipe p2(&src, 1, &tgt, 1);
-	Pipe p3(&src, 0, &a, 0);
-	Pipe p4(&src, 1, &a, 1);
-	Pipe p5(&a, 0, &tgt, 2);
+	StreamTarget tgt(2);
+	RollingAverage ra(5);
+	//Pipe p1(&src, 0, &tgt, 0);
+	Pipe p2(&src, 1, &tgt, 0);
+	Pipe p3(&src, 1, &ra, 0);
+	Pipe p5(&ra, 0, &tgt, 1);
 	while(src.NextStep());
+	while(!src.Drain());
 	return 0;
 }

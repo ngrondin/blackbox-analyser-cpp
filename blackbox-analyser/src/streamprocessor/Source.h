@@ -28,6 +28,7 @@ protected:
 
 	void SetOutputChannelCount(unsigned int c);
 	void SetOutput(unsigned int channel, long int val);
+	bool DrainOutputs();
 };
 
 #endif /* SRC_STREAMPROCESSOR_PIPESOURCE_H_ */

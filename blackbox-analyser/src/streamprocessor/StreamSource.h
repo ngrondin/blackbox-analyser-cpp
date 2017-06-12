@@ -19,6 +19,7 @@ public:
 	StreamSource();
 	virtual ~StreamSource();
 	virtual bool NextStep() = 0;;
+	bool Drain();
 };
 
 #endif /* SRC_STREAMPROCESSOR_STREAMSOURCE_H_ */

@@ -41,3 +41,18 @@ void Source::SetOutputChannelCount(unsigned int c)
 	}
 
 }
+
+bool Source::DrainOutputs()
+{
+	bool FullyDrained = true;
+	for(unsigned int i = 0; i < OutputToPipeMap.size(); i++)
+	{
+		for(unsigned int j = 0; j < OutputToPipeMap[i].size(); j++)
+		{
+			if(!OutputToPipeMap[i][j]->Drain())
+				FullyDrained = false;
+		}
+	}
+	return FullyDrained;
+
+}

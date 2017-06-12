@@ -18,6 +18,7 @@ Arithmetic::Arithmetic()
 {
 	SetInputChannelCount(2);
 	SetOutputChannelCount(1);
+	op = ADDITION;
 }
 
 Arithmetic::~Arithmetic()
@@ -40,7 +41,7 @@ void Arithmetic::SetProperty(string p, string v)
 	}
 }
 
-void Arithmetic::Process()
+void Arithmetic::ProcessStep()
 {
 	long int val = 0;
 	if(op == ADDITION)
